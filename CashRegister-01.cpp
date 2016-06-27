@@ -94,7 +94,7 @@ int main() {
 			if (CheckInventory(userInput))
 			{
 				SaleItem* currObject = GetItemByID(userInput);
-				cout << currObject << endl;
+				cout << "pointing to " <<currObject << endl;
 				AddItemToPurchase(currReceipt, currObject);				
 				system("pause");
 			}							
@@ -211,18 +211,15 @@ void MainMenu(Receipt &currReceipt)
 	//return userInput;
 }
 	
-
-
 bool CheckInventory(string itemID)
-{
-	
-	for each (SaleItem* item in inventory)
+{	
+	for each (SaleItem* itemPointer in inventory)
 	{
-		cout << item->ID << endl;
+		cout << "checking if " <<itemPointer->ID<< " is in inventory" << endl;
 
-		if (item->ID == itemID)
+		if (itemPointer->ID == itemID)
 		{
-			cout << " I found your item and it costs " << item->price << " leva" << endl;
+			cout << " I found your item and it costs " << itemPointer->price << " leva" << endl;
 			system("pause");
 			return true;
 		}
@@ -236,15 +233,12 @@ bool CheckInventory(string itemID)
 }	
 
 void PriceChange(SaleItem* currSaleItem, float newPrice)
-{	
-		
-	cout << "I am now fetching yout item so you can change its price. curent price is " << currSaleItem->price << " leva" << endl;	
+{			
+	cout << "I am now fetching yout item so you can change its price. Current price is " << currSaleItem->price << " leva" << endl;	
 	currSaleItem->price = newPrice;
 	//item.ChangePrice(newPrice);
 	cout << "Price changed, now it is " << currSaleItem->price << " leva" << endl;
-	//system("pause");			
-		
-	
+	//system("pause");				
 }
 
 void AddItemToPurchase(Receipt &currReceipt, SaleItem* currSaleItem)
