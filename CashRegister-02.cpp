@@ -6,8 +6,11 @@
 
 using namespace std;
 
-//the loop thru the array does not work as writen in the CheckInventory. Only the first element is found ???
-//works for the printout  though????
+// TODO: Array of SaleItems as a field for Receipt
+// related: operator override
+// find a spot for the copy constructor?
+
+
 
 class Store {
 public:
@@ -51,7 +54,7 @@ public:
 	string ID;
 	float price;
 
-	//PurchaseItems array for quantity and price
+	//PurchaseItems arrays for quantity, Total price += foreach(item)quant.price
 	
 	void ChangePrice(float newPrice) {
 		this->price = newPrice;
