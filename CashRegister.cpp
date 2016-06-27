@@ -64,7 +64,7 @@ SaleItem inventory[] =
 	*new SaleItem("999999999g",10.19f)
 };
 
-string MainMenu(Receipt &currReceipt);
+void MainMenu(Receipt &currReceipt);
 bool CheckInventory(string ItemID);
 void PriceChange(string itemID, float newPrice);
 void AddItemTopUrchase(Receipt &currReceipt, string itemID);
@@ -78,16 +78,20 @@ int main() {
 	currReceipt.numberOfItems = 5;
 
     //cout << inventory[2].ID << endl;
+	MainMenu(currReceipt);
 
-	string userInput = MainMenu(currReceipt);	
+	string userInput;
+    getline(cin, userInput);
+	
 	while (userInput != "END")
 	{
+		cout << "you entered "<<userInput << endl;
+
 		if (userInput.length() == 10)
 		{
 			if (CheckInventory(userInput))
 			{
-				AddItemTopUrchase(currReceipt, userInput);
-				cout << "item added to purchase.";
+				AddItemTopUrchase(currReceipt, userInput);				
 				system("pause");
 			}							
 		}
@@ -125,22 +129,20 @@ int main() {
 
 			cout << "Which item do you want me to change the price of? ";
 			
-			getline(cin, itemId);
-			//cin >> itemId;
+			getline(cin, itemId);			
 
-			CheckInventory(itemId);
-			cout << "Enter new price for that item: ";			
+			if (CheckInventory(itemId))
+			{
+				cout << "Enter new price for that item: ";	
 
-			//cin >> newPrice;
-			stream << price;
-			stream >> newPrice;
+				getline(cin, price);			
+				stream << price;
+				stream >> newPrice;
 
-			void PriceChange(string itemID, float newPrice);
-			//cout << "I should be printing your item now to show that i fetched it properly..... but i am not.: " << endl;
-			//cout << "++++"<< GetItem(itemId) << endl;
-			//GetItem(itemId)
-
-			//system("pause");			
+				void PriceChange(string itemID, float newPrice);
+				system("pause");
+			}	
+			
 		}
 
 		if (userInput == "I")
@@ -153,18 +155,17 @@ int main() {
 			cout << "Given :" << currReceipt.cashIn << endl;
 			cout << "Change :" << currReceipt.change << endl;
 
-			//system("pause");			
+			system("pause");			
 		}
 
 		else
 		{
 			cout << "invalid selection" << endl;
-			userInput = MainMenu(currReceipt);
 			system("pause");	
 		}
 
-		//system("pause");
-		userInput = MainMenu(currReceipt);
+		MainMenu(currReceipt);
+		getline(cin, userInput);
 	}
 
 	cout << "goodbye!"<<endl;
@@ -173,7 +174,7 @@ int main() {
 }
 
 
-string MainMenu(Receipt &currReceipt)
+void MainMenu(Receipt &currReceipt)
 {
 	system("cls");
 	cout << " Welcome to our store" << endl;
@@ -193,11 +194,10 @@ string MainMenu(Receipt &currReceipt)
 	cout << endl;
 
 	cout << " What is your wish, master?" << endl;
-
-	string userInput;
-	getline(cin, userInput);
+	// userInput;
+	//getline(cin, userInput);
 	//cin >> userInput;
-	return userInput;
+	//return userInput;
 }
 	
 
@@ -208,7 +208,7 @@ bool CheckInventory(string itemID)
 	{
 		if (item.ID == itemID)
 		{
-			cout << " I found your item and it costs" << item.price << " leva" << endl;
+			cout << " I found your item and it costs " << item.price << " leva" << endl;
 			system("pause");
 			return true;
 		}
@@ -231,13 +231,30 @@ void PriceChange(string itemID, float newPrice)
 			item.price = newPrice;
 			//item.ChangePrice(newPrice);
 			cout << "Price changed, now it is " << item.price << " leva" << endl;			
-			system("pause");			
+			//system("pause");			
 		}
 	}
 }
 
 void AddItemTopUrchase(Receipt &currReceipt, string itemID)
 {
-
-
+	for each (SaleItem item in inventory)
+	{
+		if (item.ID == itemID)
+		{
+			currReceipt.totalValue += item.price; // to be done with an operator override laters.
+			currReceipt.numberOfItems++;
+			cout << "I found your item and i added it to the purchase!" << endl;
+			cout << "Now your total is: " << currReceipt.totalValue << endl;
+			
+			//system("pause");
+			
+		}		
+	}
 }
+
+
+// really need a SaleItem GetItem(SaleItem* inventory[], string itemId) fuction.. 
+//but i cant figure out how to write it to return a pointer to the object,
+//or the object itself for that matter.
+//this looping thru the array everywhere needs to stop.
