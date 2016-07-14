@@ -51,6 +51,8 @@ int main() {
 
 	unsigned long long threadClock = clock();
 
+	// how to call the thread with an object fuction?
+
 	for (int i = 0; i < audience.size(); i++)
 	{
 		ExitQueThreads.push_back(std::thread(audience[i]->passThruDoor(aDoor)));
