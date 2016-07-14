@@ -56,6 +56,8 @@ int main() {
 	for (int i = 0; i < audience.size(); i++)
 	{
 		ExitQueThreads.push_back(std::thread(audience[i]->passThruDoor(aDoor)));
+		
+		//ExitQueThreads.push_back(std::thread(audience[i].passThruDoor,aDoor));  //???
 	}
 
 
