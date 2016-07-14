@@ -25,7 +25,7 @@ public:
 	~Person() {};
 
 	void passThruDoor(Door &aDoor) {
-		mtx.lock;
+		mtx.lock();
 		Sleep(aDoor.TimeToPass());
 		mtx.unlock();
 	}
